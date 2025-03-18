@@ -166,16 +166,18 @@ namespace WPEFramework
             if (url.empty())
             {
                 LOGERR("Upload url is not specified");
-
                 return Core::ERROR_GENERAL;
             }
-
+            this->url = url;
+            
             if (!callGUID.empty())
             {
+                this->callGUID = callGUID;
                 screenShotDispatcher->Schedule(Core::Time::Now().Add(0), ScreenShotJob(this));
 
                 return Core::ERROR_NONE;
             }
+            
             return Core::ERROR_GENERAL;
         }
 
