@@ -152,10 +152,10 @@ namespace WPEFramework
             WPEFramework::Core::TimerType<ScreenShotJob> *screenShotDispatcher;
             std::string url;
             std::string callGUID;
+            friend class ScreenShotJob;
 
         public:
             static ScreenCaptureImplementation *_instance;
-            friend class ScreenShotJob;
 
             friend class Job;
         };
