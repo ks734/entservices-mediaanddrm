@@ -2,3 +2,11 @@ precondition = ["Platform"]
 callsign = "org.rdk.ScreenCapture"
 autostart = "false"
 startuporder = "@PLUGIN_SCREENCAPTURE_STARTUPORDER@"
+
+configuration = JSON()
+rootobject = JSON()
+
+rootobject.add("mode", "@PLUGIN_SCREENCAPTURE_MODE@")
+rootobject.add("locator", "lib@PLUGIN_IMPLEMENTATION@.so")
+
+configuration.add("root", rootobject)
