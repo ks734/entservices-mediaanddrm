@@ -169,6 +169,7 @@ namespace WPEFramework
                 return Core::ERROR_GENERAL;
             }
             this->url = url;
+            LOGINFO("url = %s", url.c_str());
             
             if (!callGUID.empty())
             {
@@ -177,8 +178,8 @@ namespace WPEFramework
 
                 return Core::ERROR_NONE;
             }
-            
-            return Core::ERROR_GENERAL;
+            LOGINFO("callGUID = %s", callGUID.c_str());
+            return Core::ERROR_NONE;
         }
 
         static void PngWriteCallback(png_structp png_ptr, png_bytep data, png_size_t length)
@@ -383,7 +384,7 @@ namespace WPEFramework
                     JsonObject params;
                     params["status"] = true;
                     params["message"] = "Success";
-                    params["call_guid"] = callGUID;
+                    params["call_guid"] = callGUID.c_str();
 
                     dispatchEvent(SCREENCAPTURE_EVENT_UPLOADCOMPLETE, params);
 
@@ -394,7 +395,7 @@ namespace WPEFramework
                     JsonObject params;
                     params["status"] = false;
                     params["message"] = std::string("Upload Failed: ") + error_str;
-                    params["call_guid"] = callGUID;
+                    params["call_guid"] = callGUID.c_str();
 
                     dispatchEvent(SCREENCAPTURE_EVENT_UPLOADCOMPLETE, params);
 
@@ -408,7 +409,7 @@ namespace WPEFramework
                 JsonObject params;
                 params["status"] = false;
                 params["message"] = "Failed to get screen data";
-                params["call_guid"] = callGUID;
+                params["call_guid"] = callGUID.c_str();
 
                 dispatchEvent(SCREENCAPTURE_EVENT_UPLOADCOMPLETE, params);
 
