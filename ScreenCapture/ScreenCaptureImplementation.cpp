@@ -49,6 +49,7 @@ namespace WPEFramework
         {
             LOGINFO("Create ScreenCaptureImplementation Instance");
             ScreenCaptureImplementation::_instance = this;
+            screenShotDispatcher = new WPEFramework::Core::TimerType<ScreenShotJob>(64 * 1024, "ScreenCaptureDispatcher");
         }
 
         ScreenCaptureImplementation::~ScreenCaptureImplementation()
@@ -57,6 +58,7 @@ namespace WPEFramework
 
             ScreenCaptureImplementation::_instance = nullptr;
             mShell = nullptr;
+            delete screenShotDispatcher;
         }
 
         /**
@@ -174,11 +176,11 @@ namespace WPEFramework
             if (!callGUID.empty())
             {
                 this->callGUID = callGUID;
-                screenShotDispatcher->Schedule(Core::Time::Now().Add(0), ScreenShotJob(this));
+                LOGINFO("callGUID = %s", callGUID.c_str());
 
-                return Core::ERROR_NONE;
             }
-            LOGINFO("callGUID = %s", callGUID.c_str());
+            screenShotDispatcher->Schedule(Core::Time::Now().Add(0), ScreenShotJob(this));
+
             return Core::ERROR_NONE;
         }
 
