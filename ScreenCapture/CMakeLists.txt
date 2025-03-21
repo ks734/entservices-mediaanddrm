@@ -58,18 +58,18 @@ find_path(PLATFORM_SC NAMES screencaptureplatform.h)
 if (NOT ${PLATFORM_SC} STREQUAL "PLATFORM_SC-NOTFOUND")
     message("Found screencaptureplatform.h")
     add_definitions (-DHAS_SCREENCAPTURE_PLATFORM)
-    target_link_libraries(${MODULE_NAME} PRIVATE -lscreencaptureplatform)
+    target_link_libraries(${PLUGIN_IMPLEMENTATION} PRIVATE -lscreencaptureplatform)
 else()
     find_package(LibDRM QUIET)
     if (LIBDRM_FOUND)
         message("Found libdrm")
         add_definitions (-DUSE_DRM_SCREENCAPTURE)
 
-        target_sources(${MODULE_NAME}
+        target_sources(${PLUGIN_IMPLEMENTATION}
             PRIVATE
             Implementation/drm/kms.cpp
             Implementation/drm/drmsc.cpp)
-        target_link_libraries(${MODULE_NAME}
+        target_link_libraries(${PLUGIN_IMPLEMENTATION}
             PRIVATE
             drm)
     endif()
